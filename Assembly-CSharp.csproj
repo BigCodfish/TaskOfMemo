@@ -60,10 +60,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\GameFacade\UISystem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\SceneScript\IGameScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\SimpleScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\StartScene.cs" />
+    <Compile Include="Assets\Scripts\UIInit\ModeChooseUIInit.cs" />
+    <Compile Include="Assets\Scripts\UIInit\StartUIInit.cs" />
+    <Compile Include="Assets\Scripts\UIInit\UIInit.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/unity/TaskOfMemo/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

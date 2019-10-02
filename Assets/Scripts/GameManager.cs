@@ -7,11 +7,11 @@ public class GameManager : MonoBehaviour
 {
     private IGameScene mCurrentScene;
 
-    void Start()
+    void Awake()
     {
         mCurrentScene = FindObjectOfType<IGameScene>();
-        DontDestroyOnLoad(this.gameObject);
         mCurrentScene.Init();
+        DontDestroyOnLoad(this.gameObject);        
     }
 
     void Update()
@@ -24,7 +24,13 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void ChangeScene()
     {
-        if (mCurrentScene.name != SceneManager.GetActiveScene().name)
+        
+        if (mCurrentScene.GetType().Name != SceneManager.GetActiveScene().name)
+        {
+            Debug.Log($"Scene have changed to:{SceneManager.GetActiveScene().name}");
             mCurrentScene = FindObjectOfType<IGameScene>();
+            mCurrentScene.Init();
+        }
+       
     }
 }

@@ -4,11 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class StartScene : IGameScene
-{
-    public Button[] buttonGroup;
-
-    protected override void AddOnClick()
+{    
+    public override void Init()
     {
-        buttonGroup[0].onClick.AddListener(delegate() { });
+        uISystem = new UISystem();
     }
 }
