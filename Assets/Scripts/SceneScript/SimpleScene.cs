@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class SimpleScene : IGameScene
 {
-
+    public override void Init()
+    {
+        uISystem = new UISystem();
+    }
 }

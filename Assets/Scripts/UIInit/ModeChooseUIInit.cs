@@ -7,7 +7,7 @@ public class ModeChooseUIInit : IUIInit
 {
     protected override void UIEventInit()
     {
-        Debug.Log("Init");
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SceneSwitchButton("SimpleScene"); });
         transform.GetChild(4).GetComponent<Button>().onClick.AddListener(delegate() { mUISystem.UIHideButton("ModeChoosePanel"); });
     }
 }
