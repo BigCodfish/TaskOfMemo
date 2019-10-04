@@ -21,10 +21,10 @@ public class Player : MonoBehaviour
 
     private List<Vector2> oldPositionList;
     private Vector2 mMoveDir = Vector2.right;
-    private int positionLength = 5;
+    private int positionLength = 15;
     private float vertical;
     private float horizontal;
-    private float speed = 1;
+    private float speed = 2;
 
     private void Start()
     {
@@ -41,7 +41,10 @@ public class Player : MonoBehaviour
     {
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
-        mMoveDir = new Vector2(horizontal, vertical).normalized;
+        //mMoveDir = new Vector2(horizontal, vertical).normalized;
+        mMoveDir = Camera.main.ScreenToWorldPoint(Input.mousePosition - transform.position);
+        mMoveDir = mMoveDir.normalized;
+        Debug.Log(mMoveDir.magnitude);
         if (mMoveMode == MoveMode.FREE) FreeMove();
     }
 
@@ -51,29 +54,35 @@ public class Player : MonoBehaviour
         oldPositionList = new List<Vector2>();
         snake = new List<GameObject>();
         snake.Add(Instantiate(mheadPrefab, Vector2.zero, Quaternion.identity, this.transform));
-        for (int i = 1; i <= 3; i++)
+        for (int i = 1; i <= 4; i++)
         {
-            snake.Add(Instantiate(mbodyPrefab, (Vector2)snake[i-1].transform.position-mMoveDir, Quaternion.identity, this.transform));
+            snake.Add(Instantiate(mbodyPrefab, new Vector2(transform.position.x, transform.position.y - 0.07f * i), Quaternion.identity, this.transform));
+        }
+        //一开始有5个蛇身体，每个身体的间隔为positionLength个单元
+        for (int i = 0; i < 6 * positionLength + 1; i++)
+        {
+            oldPositionList.Add(new Vector2(transform.position.x, transform.position.y - 0.07f * (i + 1)));
         }
     }
 
     private void FreeMove()
     {
-        Vector3 stickAxis = mMoveDir;
+        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
+        //Vector3 stickAxis = mMoveDir;
         int tempRunTime = 1;
         for (int i = 0; i < tempRunTime; i++)
         {
             oldPositionList.Insert(0, transform.position);
-            if (stickAxis == Vector3.zero)
+            if (mMoveDir == Vector2.zero)
             {
                 Vector3 vec = direction * Vector3.up;
                 transform.position += vec.normalized * speed * Time.deltaTime;
             }
             else
-            {
-                transform.position += stickAxis.normalized * speed * Time.deltaTime;
-                direction = Quaternion.FromToRotation(Vector2.up, stickAxis);
-                transform.rotation = direction;
+            {                
+                transform.position += (Vector3)mMoveDir.normalized * speed * Time.deltaTime;
+                direction = Quaternion.FromToRotation(Vector2.up, mMoveDir);                
+                transform.GetChild(0).rotation = direction;
             }
             FollowHead();
         }

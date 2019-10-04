@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class UISystem: MonoBehaviour
@@ -24,7 +25,6 @@ public class UISystem: MonoBehaviour
         }
             
     }
-
     public void UIHideButton(string uiName)
     {
         mGameObjects[uiName].SetActive(false);

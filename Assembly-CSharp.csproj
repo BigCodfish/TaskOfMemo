@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\SceneScript\SimpleScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\StartScene.cs" />
     <Compile Include="Assets\Scripts\TestScript.cs" />
+    <Compile Include="Assets\Scripts\UIInit\HelpUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\ModeChooseUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\StartUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\UIInit.cs" />

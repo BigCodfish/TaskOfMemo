@@ -8,6 +8,7 @@ public class StartUIInit : IUIInit
     protected override void UIEventInit()
     {
         transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate(){mUISystem.UISwitchButton("ModeChoosePanel");});
+        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("HelpUI"); });
     }
 
 }
