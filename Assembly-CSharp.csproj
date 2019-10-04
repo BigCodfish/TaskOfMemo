@@ -66,7 +66,15 @@
     <Compile Include="Assets\Scripts\GameFacade\ScoreSystem.cs" />
     <Compile Include="Assets\Scripts\GameFacade\UISystem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Prop\Boom.cs" />
+    <Compile Include="Assets\Scripts\Prop\Energy.cs" />
+    <Compile Include="Assets\Scripts\Prop\Food.cs" />
     <Compile Include="Assets\Scripts\Prop\IProp.cs" />
+    <Compile Include="Assets\Scripts\Prop\MushRoom.cs" />
+    <Compile Include="Assets\Scripts\Prop\PoisonousGrass.cs" />
+    <Compile Include="Assets\Scripts\Prop\Shelid.cs" />
+    <Compile Include="Assets\Scripts\Prop\SmartGrass.cs" />
+    <Compile Include="Assets\Scripts\Prop\Wall.cs" />
     <Compile Include="Assets\Scripts\SceneScript\IGameScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\SimpleScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\StartScene.cs" />

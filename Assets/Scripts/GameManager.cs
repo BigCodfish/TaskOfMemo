@@ -17,20 +17,28 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         ChangeScene();
+        ReLoadScene();
+        if (!mCurrentScene.haveEnd) mCurrentScene.SceneUpdate();
     }
 
     /// <summary>
     /// 让mCurrentScene和当前场景保持一致
     /// </summary>
     private void ChangeScene()
-    {
-        
+    {      
         if (mCurrentScene.GetType().Name != SceneManager.GetActiveScene().name)
         {
             Debug.Log($"Scene have changed to:{SceneManager.GetActiveScene().name}");
             mCurrentScene = FindObjectOfType<IGameScene>();
             mCurrentScene.Init();
         }
-       
+    }
+    private void ReLoadScene()
+    {
+        if(FindObjectOfType<IGameScene>().reStart)
+        {
+            mCurrentScene = FindObjectOfType<IGameScene>();
+            mCurrentScene.Init();
+        }
     }
 }

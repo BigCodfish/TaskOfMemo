@@ -762,6 +762,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uISystem: {fileID: 0}
+  haveEnd: 0
+  reStart: 0
 --- !u!4 &1023958102
 Transform:
   m_ObjectHideFlags: 0
