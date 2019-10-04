@@ -61,10 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameFacade\GlobalSetting.cs" />
+    <Compile Include="Assets\Scripts\GameFacade\ItemCreateSystem.cs" />
     <Compile Include="Assets\Scripts\GameFacade\Player.cs" />
     <Compile Include="Assets\Scripts\GameFacade\ScoreSystem.cs" />
     <Compile Include="Assets\Scripts\GameFacade\UISystem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\Prop\IProp.cs" />
     <Compile Include="Assets\Scripts\SceneScript\IGameScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\SimpleScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\StartScene.cs" />

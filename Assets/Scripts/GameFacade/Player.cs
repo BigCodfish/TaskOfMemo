@@ -10,21 +10,23 @@ public enum MoveMode
 
 public class Player : MonoBehaviour
 {
-    private Quaternion direction;
-    //移动方式
-    private MoveMode mMoveMode;
+    private Quaternion direction;    
     private GameObject mheadPrefab;
     private GameObject mbodyPrefab;
-    private GlobalSetting globalSetting;
-    //蛇身
-    private List<GameObject> snake;
-
-    private List<Vector2> oldPositionList;
+    private GlobalSetting globalSetting;       
     private Vector2 mMoveDir = Vector2.right;
     private int positionLength = 15;
+    private int tempRunTime = 1;
     private float vertical;
     private float horizontal;
     private float speed = 2;
+    //移动方式
+    private MoveMode mMoveMode;
+    //蛇身移动位置
+    private List<Vector2> oldPositionList;
+    //蛇身
+    private List<GameObject> snake;
+    //移动频率 在不改变相对位置的情况下增大速度
 
     private void Start()
     {
@@ -44,7 +46,6 @@ public class Player : MonoBehaviour
         //mMoveDir = new Vector2(horizontal, vertical).normalized;
         mMoveDir = Camera.main.ScreenToWorldPoint(Input.mousePosition - transform.position);
         mMoveDir = mMoveDir.normalized;
-        Debug.Log(mMoveDir.magnitude);
         if (mMoveMode == MoveMode.FREE) FreeMove();
     }
 
@@ -69,7 +70,7 @@ public class Player : MonoBehaviour
     {
         Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
         //Vector3 stickAxis = mMoveDir;
-        int tempRunTime = 1;
+        
         for (int i = 0; i < tempRunTime; i++)
         {
             oldPositionList.Insert(0, transform.position);
