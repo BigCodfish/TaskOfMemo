@@ -1,0 +1,14 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class SimpleModeUIInit : IUIInit
+{
+    protected override void UIEventInit()
+    {
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("StopUI"); });        
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { FindObjectOfType<SimpleScene>().GameStop(); });
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SimpleModeUI"); });
+    }
+}

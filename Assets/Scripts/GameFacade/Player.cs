@@ -29,22 +29,20 @@ public class Player : MonoBehaviour
         mheadPrefab = Resources.Load("Player/HeadPrefab") as GameObject;
         mbodyPrefab = Resources.Load("Player/BodyPrefab") as GameObject;
         mheadPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentHeadSkin;
-        mbodyPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentBodySkin;
-
-        InitSnake();
+        mbodyPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentBodySkin;        
     }
 
     private void Update()
     {
         //vertical = Input.GetAxis("Vertical");
         //horizontal = Input.GetAxis("Horizontal");
-        //mMoveDir = new Vector2(horizontal, vertical).normalized;
-        mMoveDir = Camera.main.ScreenToWorldPoint(Input.mousePosition - transform.position);
+        //mMoveDir = new Vector2(horizontal, vertical).normalized;        
+        mMoveDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         mMoveDir = mMoveDir.normalized;
     }
 
 
-    private void InitSnake()
+    public void InitSnake()
     {
         oldPositionList = new List<Vector2>();
         snake = new List<GameObject>();
@@ -56,14 +54,16 @@ public class Player : MonoBehaviour
         //一开始有5个蛇身体，每个身体的间隔为positionLength个单元
         for (int i = 0; i < 6 * positionLength + 1; i++)
         {
-            oldPositionList.Add(new Vector2(transform.position.x, transform.position.y - 0.07f * (i + 1)));
+            oldPositionList.Add(new Vector2(transform.position.x, transform.position.y - 0.07f / positionLength * (i + 1)));
         }
     }
 
+    /// <summary>
+    /// 一二种模式中的移动方式
+    /// </summary>
     public void FreeMove()
     {
-        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);
-       
+        Debug.DrawLine(transform.position, Camera.main.ScreenToWorldPoint(Input.mousePosition), Color.red);      
         for (int i = 0; i < tempRunTime; i++)
         {
             oldPositionList.Insert(0, transform.position);
@@ -73,10 +73,11 @@ public class Player : MonoBehaviour
                 transform.position += vec.normalized * speed * Time.deltaTime;
             }
             else
-            {                
+            {
+                //Debug.Log(mMoveDir);
                 transform.position += (Vector3)mMoveDir.normalized * speed * Time.deltaTime;
                 direction = Quaternion.FromToRotation(Vector2.up, mMoveDir);                
-                transform.GetChild(0).rotation = direction;
+                transform.GetChild(1).rotation = direction;
             }
             FollowHead();
         }
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour
     {
         for (int i = 0; i < snake.Count; i++)
         {
-            snake[i].transform.position = oldPositionList[(i + 1) * (positionLength)];
+            snake[i].transform.position = oldPositionList[(i) * (positionLength)];
         }
         if (oldPositionList.Count > snake.Count * positionLength + 40)
         {
@@ -107,9 +108,14 @@ public class Player : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             GameObject go = Instantiate(mbodyPrefab, (Vector2)snake[snake.Count - 1].transform.position - mMoveDir * 0.7f, Quaternion.identity, transform);
+            for (int j = 0; j < positionLength; j++)
+            {
+                oldPositionList.Add(new Vector2(go.transform.position.x, go.transform.position.y - 0.07f / positionLength * (i)));
+            }
             snake.Add(go);
         }        
     }
+
     public void DeleteBody(int count)
     {
         for (int i = 0; i < count; i++)
@@ -120,4 +126,13 @@ public class Player : MonoBehaviour
     }
 
     public int GetBodyLength() => snake.Count;
+
+    //private void OnDrawGizmos()
+    //{
+    //    for (int i = 0; i < oldPositionList.Count; i++)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawSphere(oldPositionList[i], 0.1f);
+    //    }
+    //}
 }

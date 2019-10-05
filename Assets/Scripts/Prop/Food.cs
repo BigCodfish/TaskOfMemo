@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Food : IProp
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public override void PropFuction(Collider2D collision)
     {
-        if (collision.tag == "Player") collision.GetComponent<Player>().AddBody(1);
+        collision.GetComponent<Player>().AddBody(1);
+        //调用音乐和分数系统
+        Destroy(this.gameObject);
     }
 }

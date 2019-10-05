@@ -5,8 +5,8 @@ using UnityEngine;
 public class IProp : MonoBehaviour
 {
     private CircleCollider2D circleCollider;
-
-    public virtual void PropFuction() { }
+    private bool judgeOverlap = true;
+    public virtual void PropFuction(Collider2D collision) { }
 
     private void AvoidOverlap()
     {
@@ -18,14 +18,28 @@ public class IProp : MonoBehaviour
         }
     }
 
+    public void StartJudgement() => judgeOverlap = true;
+
     private void Start()
     {
         circleCollider = GetComponent<CircleCollider2D>();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            PropFuction(collision);
+        }
+    }
+
     private void Update()
     {
-        AvoidOverlap();
+        if (judgeOverlap)
+        {
+            AvoidOverlap();
+            judgeOverlap = false;
+        }
     }
 
 //    private void OnDrawGizmos()

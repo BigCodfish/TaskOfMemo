@@ -15,13 +15,14 @@ public class ItemCreateSystem : MonoBehaviour
 
     public List<GameObject> props;
     public List<GameObject> foods;
+    public List<GameObject> walls;
 
     private Transform wallParent;
     private Transform propParent;
     private Transform foodParent;
-    private int wallCount = 60;
-    private int foodCount = 40;
-    private int propCount = 30;
+    private int wallCount = 70;
+    private int foodCount = 60;
+    private int propCount = 60;
 
     /// <summary>
     /// 第一种模式中生成墙
@@ -30,7 +31,7 @@ public class ItemCreateSystem : MonoBehaviour
     {
         int wallKind = (int)Random.Range(0, 6.99f);
         Vector2 wallPos = new Vector2(Random.Range(leftTop.position.x, rightBottom.position.x), Random.Range(rightBottom.position.y, leftTop.position.y));
-        Instantiate(wallPrefabs[wallKind], wallPos, wallPrefabs[wallKind].transform.rotation, wallParent);
+        walls.Add(Instantiate(wallPrefabs[wallKind], wallPos, wallPrefabs[wallKind].transform.rotation, wallParent));
     }
 
     public void InitWall()
@@ -64,6 +65,7 @@ public class ItemCreateSystem : MonoBehaviour
             {
                 foods.Remove(foods[i]);
                 CreateFood();
+                JudgeItemOverlap();
             }
         }
     }
@@ -73,7 +75,7 @@ public class ItemCreateSystem : MonoBehaviour
         int propKind = (int)Random.Range(0, 4.99f);
         Vector2 propPos = new Vector2(Random.Range(leftTop.position.x, rightBottom.position.x), Random.Range(rightBottom.position.y, leftTop.position.y));
         GameObject go = Instantiate(propPrefabs[propKind], propPos, propPrefabs[propKind].transform.rotation, propParent);
-        props.Add(go);
+        props.Add(go);       
     }
 
     public void InitProp()
@@ -92,8 +94,19 @@ public class ItemCreateSystem : MonoBehaviour
             {
                 props.Remove(props[i]);
                 CreateProp();
+                JudgeItemOverlap();
             }
         }
+    }
+
+    /// <summary>
+    /// 判断是否重合
+    /// </summary>
+    public void JudgeItemOverlap()
+    {
+        for (int i = 0; i < foods.Count; i++) if (foods[i] != null) foods[i].GetComponent<IProp>().StartJudgement();
+        for (int i = 0; i < props.Count; i++) if (props[i] != null) props[i].GetComponent<IProp>().StartJudgement();
+        for (int i = 0; i < walls.Count; i++) walls[i].GetComponent<Wall>().StartJudgement();
     }
 
     private void Start()

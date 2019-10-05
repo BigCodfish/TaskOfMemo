@@ -7,7 +7,7 @@ public class IGameScene : MonoBehaviour
     public virtual void Init() { }
     public virtual void SceneUpdate() { }
     public virtual void Exit() { }
-    public UISystem uISystem;
+    [HideInInspector]public UISystem uISystem;
 
     public bool haveEnd = false;
     protected bool gameResult;
