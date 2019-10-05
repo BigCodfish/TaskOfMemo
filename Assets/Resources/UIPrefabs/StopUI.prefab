@@ -2299,6 +2299,7 @@ GameObject:
   - component: {fileID: 8968229302644621441}
   - component: {fileID: 8968229302644621443}
   - component: {fileID: 8968229302644621442}
+  - component: {fileID: 505144295757493403}
   m_Layer: 5
   m_Name: StopUI
   m_TagString: Untagged
@@ -2370,6 +2371,18 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &505144295757493403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8968229302644621440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 219537c63d2f00941a731e6b07165e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8968229302686095703
 GameObject:
   m_ObjectHideFlags: 0

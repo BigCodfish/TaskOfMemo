@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     {
         ChangeScene();
         ReLoadScene();
-        if (!mCurrentScene.haveEnd) mCurrentScene.SceneUpdate();
+        mCurrentScene.SceneUpdate();
     }
 
     /// <summary>

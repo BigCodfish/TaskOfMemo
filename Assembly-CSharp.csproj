@@ -116,6 +116,7 @@
     <Compile Include="Assets\Scripts\GameFacade\GlobalSetting.cs" />
     <Compile Include="Assets\Scripts\GameFacade\ItemCreateSystem.cs" />
     <Compile Include="Assets\Scripts\GameFacade\Player.cs" />
+    <Compile Include="Assets\Scripts\GameFacade\Recorder.cs" />
     <Compile Include="Assets\Scripts\GameFacade\ScoreSystem.cs" />
     <Compile Include="Assets\Scripts\GameFacade\UISystem.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -133,9 +134,12 @@
     <Compile Include="Assets\Scripts\SceneScript\SimpleScene.cs" />
     <Compile Include="Assets\Scripts\SceneScript\StartScene.cs" />
     <Compile Include="Assets\Scripts\TestScript.cs" />
+    <Compile Include="Assets\Scripts\UIInit\EndUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\HelpUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\ModeChooseUIInit.cs" />
+    <Compile Include="Assets\Scripts\UIInit\SettingUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\SimpleModeUIInit.cs" />
+    <Compile Include="Assets\Scripts\UIInit\SkinChooseUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\StartUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\StopUIInit.cs" />
     <Compile Include="Assets\Scripts\UIInit\UIInit.cs" />

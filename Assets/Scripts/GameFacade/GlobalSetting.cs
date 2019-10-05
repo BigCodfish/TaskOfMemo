@@ -6,10 +6,13 @@ public class GlobalSetting : MonoBehaviour
 {
     public Sprite currentHeadSkin;
     public Sprite currentBodySkin;
-    public float bgmVolume;
-    public float soundVolume;
     public Sprite[] headSkins;
     public Sprite[] bodySkins;
+    public bool musicOn = true;
+    public bool soundOn = true;
+    public float musicVolume = 1;
+    public float soundVolume = 1;    
+    public int level = 2;
 
     private void Start()
     {

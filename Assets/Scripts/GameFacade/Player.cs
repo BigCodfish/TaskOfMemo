@@ -7,11 +7,13 @@ public class Player : MonoBehaviour
     //private float vertical;
     //private float horizontal;
 
+    private Recorder currentRecorder;
     private Quaternion direction;    
     private GameObject mheadPrefab;
     private GameObject mbodyPrefab;
     private GlobalSetting globalSetting;       
     private Vector2 mMoveDir = Vector2.right;
+    private SpriteRenderer shieldSprite;
           
     private float speed = 2;
     //每节的距离单位
@@ -22,14 +24,19 @@ public class Player : MonoBehaviour
     private List<GameObject> snake;
     //移动频率 在不改变相对位置的情况下增大速度
     private int tempRunTime = 1;
+    //护盾开启
+    private bool shieldOn = false;
 
     private void Start()
     {
+        
         globalSetting = FindObjectOfType<GlobalSetting>();
         mheadPrefab = Resources.Load("Player/HeadPrefab") as GameObject;
         mbodyPrefab = Resources.Load("Player/BodyPrefab") as GameObject;
         mheadPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentHeadSkin;
-        mbodyPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentBodySkin;        
+        mbodyPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentBodySkin;
+        shieldSprite = GetComponent<SpriteRenderer>();
+        shieldSprite.enabled = false;
     }
 
     private void Update()
@@ -39,11 +46,13 @@ public class Player : MonoBehaviour
         //mMoveDir = new Vector2(horizontal, vertical).normalized;        
         mMoveDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         mMoveDir = mMoveDir.normalized;
+        if (shieldOn) shieldSprite.enabled = true;
     }
 
 
     public void InitSnake()
     {
+        currentRecorder = FindObjectOfType<IGameScene>().recorder;
         oldPositionList = new List<Vector2>();
         snake = new List<GameObject>();
         snake.Add(Instantiate(mheadPrefab, Vector2.zero, Quaternion.identity, this.transform));
@@ -110,22 +119,40 @@ public class Player : MonoBehaviour
             GameObject go = Instantiate(mbodyPrefab, (Vector2)snake[snake.Count - 1].transform.position - mMoveDir * 0.7f, Quaternion.identity, transform);
             for (int j = 0; j < positionLength; j++)
             {
-                oldPositionList.Add(new Vector2(go.transform.position.x, go.transform.position.y - 0.07f / positionLength * (i)));
+                oldPositionList.Add(go.transform.position);
             }
             snake.Add(go);
-        }        
+        }
+        currentRecorder.ChangeData("Score", count * 5 * tempRunTime);
+        currentRecorder.ChangeData("SnakeLength", count);
     }
 
     public void DeleteBody(int count)
     {
+        if(shieldOn)
+        {
+            shieldOn = false;
+            shieldSprite.enabled = false;
+            return;
+        }
         for (int i = 0; i < count; i++)
         {
             Destroy(snake[snake.Count - 1]);
             snake.RemoveAt(snake.Count - 1);
         }
+        currentRecorder.ChangeData("Score", -count * 5);
+        currentRecorder.ChangeData("SnakeLength", -count);
+    }
+
+    public void AddSpeed(int value)
+    {
+        tempRunTime += value;
+        currentRecorder.ChangeData("Energy", value);
     }
 
     public int GetBodyLength() => snake.Count;
+
+    public bool SetShield() => shieldOn = true;
 
     //private void OnDrawGizmos()
     //{
