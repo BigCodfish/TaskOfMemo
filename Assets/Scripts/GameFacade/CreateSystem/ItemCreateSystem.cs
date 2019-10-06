@@ -99,11 +99,23 @@ public class ItemCreateSystem : MonoBehaviour
         }
     }
 
+    public void DeleteItem()
+    {
+        for (int i = 0; i < walls.Count; i++) Destroy(walls[i]);                    
+        for (int i = 0; i < foods.Count; i++) Destroy(foods[i]);
+        for (int i = 0; i < props.Count; i++) Destroy(props[i]);
+        walls = new List<GameObject>();
+        props = new List<GameObject>();
+        foods = new List<GameObject>();
+
+    }
+
     /// <summary>
     /// 判断是否重合
     /// </summary>
     public void JudgeItemOverlap()
     {
+        
         for (int i = 0; i < foods.Count; i++) if (foods[i] != null) foods[i].GetComponent<IProp>().StartJudgement();
         for (int i = 0; i < props.Count; i++) if (props[i] != null) props[i].GetComponent<IProp>().StartJudgement();
         for (int i = 0; i < walls.Count; i++) walls[i].GetComponent<Wall>().StartJudgement();

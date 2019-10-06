@@ -7,10 +7,11 @@ public class IUIInit : MonoBehaviour
 {
     protected virtual void UIEventInit() { }
     protected UISystem mUISystem;
+    public bool haveInit = false;
 
     private void Start()
     {
         mUISystem = FindObjectOfType<IGameScene>().uISystem;
-        UIEventInit();
+        if(!haveInit) UIEventInit();
     }
 }

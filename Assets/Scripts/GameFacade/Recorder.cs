@@ -5,7 +5,11 @@ using UnityEngine;
 public class Recorder : MonoBehaviour
 {
     public Dictionary<string, int> datas = new Dictionary<string, int>();
+
+    public void SetData(string name, int value) => datas[name] = value;
+
     public void ChangeData(string name, int value) => datas[name] += value;
+
     public int[] GetDatas()
     {
         int[] temp = new int[3];
@@ -16,5 +20,10 @@ public class Recorder : MonoBehaviour
             i++;
         }
         return temp;
+    }
+
+    public void DeleteDictionary()
+    {
+        datas.Clear();
     }
 }

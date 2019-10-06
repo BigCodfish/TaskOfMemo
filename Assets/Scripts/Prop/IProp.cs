@@ -14,7 +14,7 @@ public class IProp : MonoBehaviour
         if(collider!=null && collider.tag!="Player" && collider != circleCollider)
         {
             Destroy(collider.gameObject);
-            Debug.Log("Destroy Overlap Prop");
+            //Debug.Log("Destroy Overlap Prop");
         }
     }
 

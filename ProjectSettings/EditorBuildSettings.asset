@@ -14,4 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SimpleScene.unity
     guid: 3b760d4b70373ad46ba20f13ac312fe7
+  - enabled: 1
+    path: Assets/Scenes/Transition.unity
+    guid: 925978477a5083a4b864245fd810d520
+  - enabled: 1
+    path: Assets/Scenes/EndlessScene.unity
+    guid: da41505413b15684f84d4ceb64f82953
+  - enabled: 1
+    path: Assets/Scenes/ColorScene.unity
+    guid: 6554d10f0aec42849b0f82f954ab4b33
   m_configObjects: {}

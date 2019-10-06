@@ -9,6 +9,7 @@ public class EndUIInit : IUIInit
     {
         mUISystem.SetText(transform.GetChild(0).GetComponent<Text>());
         transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.RePlayButton(); });
-        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SceneSwitchButton("StartScene"); });
+        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("EndUI"); });      
+        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SceneSwitchButton("StartScene"); });        
     }
 }
