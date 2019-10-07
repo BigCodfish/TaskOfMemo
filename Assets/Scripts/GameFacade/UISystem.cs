@@ -83,7 +83,7 @@ public class UISystem: MonoBehaviour
     public void SetLevel(int level,bool value)
     {
         GlobalSetting setting = FindObjectOfType<GlobalSetting>();
-        if (value) setting.level = level;
+        if (value) setting.level = level;        
     }
 
     public void SetAudioState(string type,bool value)

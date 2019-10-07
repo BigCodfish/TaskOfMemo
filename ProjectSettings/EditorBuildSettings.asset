@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ColorScene.unity
     guid: 6554d10f0aec42849b0f82f954ab4b33
+  - enabled: 1
+    path: Assets/Scenes/RiskMode/RiskScene1.unity
+    guid: 2f8af6d6421d28641ace5788254c460a
+  - enabled: 1
+    path: Assets/Scenes/RiskMode/RiskScene2.unity
+    guid: f7ed93cc4f5b8d94c9fd9e198d0a2189
   m_configObjects: {}

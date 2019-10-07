@@ -11,6 +11,8 @@ public class SimpleScene : IGameScene
     public override void Init()
     {
         //Debug.Log("Init SimpleScene");
+        
+        
         uISystem = new UISystem();
         recorder = new Recorder();
 
@@ -29,6 +31,23 @@ public class SimpleScene : IGameScene
 
         mPlayer.InitSnake(4);
         uISystem.UISwitchButton("SimpleModeUI");
+
+        switch (FindObjectOfType<GlobalSetting>().level)
+        {
+            case 1:
+                createSystem.SetCount(60, 70, 60);                
+                break;
+            case 2:
+                createSystem.SetCount(60, 70, 60);
+                mPlayer.AddSpeed(1);
+                break;
+            case 3:
+                createSystem.SetCount(60, 90, 40);
+                mPlayer.AddSpeed(1);
+                break;
+            default:
+                break;
+        }
 
         haveEnd = false;
         haveStop = false;
@@ -72,10 +91,5 @@ public class SimpleScene : IGameScene
     {
         Exit();
         Init();
-    }
-
-    public void GameStop(bool value)
-    {
-        haveStop = value;
     }
 }

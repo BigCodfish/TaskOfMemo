@@ -7,6 +7,7 @@ public class Food : IProp
     public override void PropFuction(Collider2D collision)
     {
         collision.GetComponent<Player>().AddBody(1);
+        FindObjectOfType<AudioSystem>().PlayPropAudio(2);
         //调用音乐和分数系统
         Destroy(this.gameObject);
     }

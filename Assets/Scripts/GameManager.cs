@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     {      
         if (mCurrentScene.GetType().Name != SceneManager.GetActiveScene().name)
         {
-            Debug.Log($"Scene have changed to:{SceneManager.GetActiveScene().name}");
+            //Debug.Log($"Scene have changed to:{SceneManager.GetActiveScene().name}");
             mCurrentScene = FindObjectOfType<IGameScene>();
             mCurrentScene.Init();
         }

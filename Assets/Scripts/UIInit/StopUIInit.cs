@@ -18,20 +18,43 @@ public class StopUIInit : IUIInit
         switch (SceneManager.GetActiveScene().name)
         {
             case "SimpleScene":
-                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("SimpleModeUI"); });
+                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("SimpleModeUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
                 break;
             case "EndlessScene":
-                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("EndlessModeUI"); });
+                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("EndlessModeUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
                 break;
             case "ColorScene":
-                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("ColorModeUI"); });
+                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("ColorModeUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
                 break;
             default:
-                Debug.Log("Please add event to StopUIInit");
+                transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("RiskModeUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
                 break;
-        }        
-        transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { FindObjectOfType<IGameScene>().GameStop(false); });
-        transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("StopUI"); });
-        transform.GetChild(6).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SceneSwitchButton("StartScene"); });
+        } 
+        
+        transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { FindObjectOfType<IGameScene>().GameStop(false); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("StopUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(6).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SceneSwitchButton("StartScene"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+
+        //
+        transform.GetChild(3).GetComponent<Slider>().value = FindObjectOfType<GlobalSetting>().musicVolume;
+        transform.GetChild(4).GetComponent<Slider>().value = FindObjectOfType<GlobalSetting>().soundVolume;
+
+        transform.GetChild(1).GetComponent<Toggle>().isOn = FindObjectOfType<GlobalSetting>().musicOn;
+        transform.GetChild(2).GetComponent<Toggle>().isOn = FindObjectOfType<GlobalSetting>().soundOn;
+
+        switch (FindObjectOfType<GlobalSetting>().level)
+        {
+            case 1:
+                transform.GetChild(0).GetChild(0).GetComponent<Toggle>().isOn = true;
+                break;
+            case 2:
+                transform.GetChild(0).GetChild(1).GetComponent<Toggle>().isOn = true;
+                break;
+            case 3:
+                transform.GetChild(0).GetChild(2).GetComponent<Toggle>().isOn = true;
+                break;
+            default:
+                break;
+        }
     }
 }

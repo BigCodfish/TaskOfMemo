@@ -29,7 +29,14 @@ public class ColorLine : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.GetComponent<SpriteRenderer>().color = currentColor;
+        if (collision.tag != "Player")
+            collision.GetComponent<SpriteRenderer>().color = FindObjectOfType<Player>().mcolor;
+        else
+        {
+            collision.transform.GetChild(0).GetComponent<SpriteRenderer>().color = currentColor;
+            collision.GetComponent<Player>().mcolor = currentColor;
+        }
+            
     }
 
     private void ChangeColor()

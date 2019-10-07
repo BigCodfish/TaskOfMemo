@@ -7,7 +7,7 @@ public class StartScene : IGameScene
 {    
     public override void Init()
     {
-        Debug.Log("InitStartScene");
+        //Debug.Log("InitStartScene");
         uISystem = new UISystem();
     }
     public override void SceneUpdate()

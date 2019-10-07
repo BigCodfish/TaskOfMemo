@@ -15,7 +15,7 @@ public class HelpUIInit : IUIInit
         {
             transform.GetChild(i).gameObject.SetActive(false);
         }
-        transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("HelpUI"); });
+        transform.GetChild(5).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("HelpUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
     }
 
     private void OnToggleClick(bool isOn ,int id)

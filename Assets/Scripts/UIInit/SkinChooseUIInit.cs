@@ -7,14 +7,14 @@ public class SkinChooseUIInit : IUIInit
 {
     protected override void UIEventInit()
     {
-        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); });
-        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(0); });
-        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); });
-        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(1); });
-        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); });
-        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(2); });
-        transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); });
-        transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(3); });
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(0); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(1); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(2); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("SkinChooseUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.SetSkin(3); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
     }
     
 }

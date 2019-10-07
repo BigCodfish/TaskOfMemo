@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class Player : MonoBehaviour
     private GlobalSetting globalSetting;       
     private Vector2 mMoveDir = Vector2.right;
     private SpriteRenderer shieldSprite;
-    private Rigidbody2D mRigidbody;      
+    private Rigidbody2D mRigidbody;
+    private Vector2 tempV;
 
     public float speed = 2;
     //每节的距离单位
@@ -24,7 +26,7 @@ public class Player : MonoBehaviour
     //蛇身
     private List<GameObject> snake;
     //移动频率 在不改变相对位置的情况下增大速度
-    private int tempRunTime = 1;
+    private int tempRunTime;
     //护盾开启
     private bool shieldOn = false;
     //色彩模式的颜色
@@ -51,6 +53,8 @@ public class Player : MonoBehaviour
         mheadPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentHeadSkin;
         mbodyPrefab.GetComponent<SpriteRenderer>().sprite = globalSetting.currentBodySkin;
 
+        tempRunTime = 1;
+        shieldOn = false;
         currentRecorder = FindObjectOfType<IGameScene>().recorder;
         oldPositionList = new List<Vector2>();
         snake = new List<GameObject>();
@@ -72,8 +76,9 @@ public class Player : MonoBehaviour
     public void InitColorSnake()
     {
         mcolor = Color.white;
-        mheadPrefab = Resources.Load("Player/ColorSnakePrefab") as GameObject;
-        mbodyPrefab = Resources.Load("Player/ColorSnakePrefab") as GameObject;
+
+        mheadPrefab = Resources.Load("Player/ColorHeadPrefab") as GameObject;
+        mbodyPrefab = Resources.Load("Player/ColorBodyPrefab") as GameObject;
         currentRecorder = FindObjectOfType<IGameScene>().recorder;
         oldPositionList = new List<Vector2>();
         snake = new List<GameObject>();
@@ -83,7 +88,7 @@ public class Player : MonoBehaviour
             snake.Add(Instantiate(mbodyPrefab, new Vector2(transform.position.x, transform.position.y - 0.07f * i), Quaternion.identity, this.transform));
         }
         //一开始有5个蛇身体，每个身体的间隔为positionLength个单元
-        for (int i = 0; i < 6 * positionLength + 1; i++)
+        for (int i = 0; i < 40 * positionLength + 1; i++)
         {
             oldPositionList.Add(new Vector2(transform.position.x, transform.position.y - 0.07f / positionLength * (i + 1)));
         }
@@ -129,7 +134,7 @@ public class Player : MonoBehaviour
         if (shieldOn) shieldSprite.enabled = true;
         for (int i = 0; i < 1; i++)
         {
-            oldPositionList.Insert(0, transform.position);
+            oldPositionList.Insert(0, mRigidbody.position);
             if (mMoveDir == Vector2.zero)
             {
                 Vector3 vec = direction * Vector3.up;
@@ -141,7 +146,7 @@ public class Player : MonoBehaviour
                 mRigidbody.velocity = mMoveDir.normalized * speed * Time.deltaTime;
                 //mRigidbody.AddForce(transform.position + (Vector3)mMoveDir.normalized * speed * Time.deltaTime);
                 direction = Quaternion.FromToRotation(Vector2.up, mMoveDir);
-                transform.GetChild(1).rotation = direction;
+                transform.GetChild(0).rotation = direction;
             }
             FollowHead();
         }
@@ -199,8 +204,22 @@ public class Player : MonoBehaviour
             }
             snake.Add(go);
         }
-        currentRecorder.ChangeData("Score", count * 5 * tempRunTime);
-        currentRecorder.ChangeData("SnakeLength", count);
+        switch(SceneManager.GetActiveScene().name)
+        {
+            case "SimpleScene":
+                currentRecorder.ChangeData("Score", count * 5 * tempRunTime);
+                currentRecorder.ChangeData("SnakeLength", count);
+                break;
+            case "EndlessScene":
+                currentRecorder.ChangeData("Score", 20);
+                currentRecorder.ChangeData("SnakeLength", count);
+                break;
+            default:
+                currentRecorder.ChangeData("Score", 50);
+                currentRecorder.ChangeData("SnakeLength", count);
+                break;
+        }
+        
     }
 
     public void DeleteBody(int count)
@@ -212,13 +231,22 @@ public class Player : MonoBehaviour
             return;
         }
         for (int i = 0; i < count; i++)
-        {
+        {            
             if (snake.Count - 1 < 0) return;
             Destroy(snake[snake.Count - 1]);
             snake.RemoveAt(snake.Count - 1);
         }
-        currentRecorder.ChangeData("Score", -count * 5);
-        currentRecorder.ChangeData("SnakeLength", -count);
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "SimpleScene":
+                currentRecorder.ChangeData("Score", -count * 5);
+                currentRecorder.ChangeData("SnakeLength", -count);
+                break;
+            default:
+                currentRecorder.ChangeData("SnakeLength", -count);
+                break;
+        }
+        
     }
 
     public void AddSpeed(int value)
@@ -236,12 +264,15 @@ public class Player : MonoBehaviour
         for (int i = 0; i < snake.Count; i++) Destroy(snake[i]);                
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    for (int i = 0; i < oldPositionList.Count; i++)
-    //    {
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawSphere(oldPositionList[i], 0.1f);
-    //    }
-    //}
+    public void StopRigid()
+    {
+        tempV = mRigidbody.velocity;
+        mRigidbody.velocity = Vector2.zero;
+    }
+
+    public void RecoverRigid()
+    {
+        mRigidbody.velocity = tempV;
+        tempV = Vector2.zero;
+    }
 }

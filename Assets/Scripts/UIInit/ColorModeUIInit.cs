@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ColorModeUIInit : MonoBehaviour
+public class ColorModeUIInit : IUIInit
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void UIEventInit()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("StopUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { FindObjectOfType<IGameScene>().GameStop(true); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UIHideButton("EndlessModeUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        mUISystem.SetText(transform.GetChild(1).GetChild(0).GetComponent<Text>());
     }
 }

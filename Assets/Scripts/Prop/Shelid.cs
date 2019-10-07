@@ -7,6 +7,7 @@ public class Shelid : IProp
     public override void PropFuction(Collider2D collision)
     {
         collision.GetComponent<Player>().SetShield();
+        FindObjectOfType<AudioSystem>().PlayPropAudio(4);
         Destroy(this.gameObject);
     }
 }

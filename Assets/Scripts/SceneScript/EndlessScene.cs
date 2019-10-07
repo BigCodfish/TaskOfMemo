@@ -34,6 +34,7 @@ public class EndlessScene : IGameScene
         }
         if (haveEnd)
         {
+            mPlayer.StopRigid();
             uISystem.UIHideButton("EndlessModeUI");
             uISystem.UISwitchButton("EndUI");
             if (recorder.datas.ContainsKey("Score")) mEndScore = new int[] { recorder.datas["Score"] };
@@ -68,6 +69,13 @@ public class EndlessScene : IGameScene
     public override void SetList(GameObject go)
     {
         mPropGroups.Add(go);
+    }
+
+    public override void GameStop(bool value)
+    {
+        haveStop = value;
+        if (value) mPlayer.StopRigid();
+        else mPlayer.RecoverRigid();
     }
 
     private void DeleteList()

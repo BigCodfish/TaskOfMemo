@@ -118,7 +118,7 @@ public class ItemCreateSystem : MonoBehaviour
         
         for (int i = 0; i < foods.Count; i++) if (foods[i] != null) foods[i].GetComponent<IProp>().StartJudgement();
         for (int i = 0; i < props.Count; i++) if (props[i] != null) props[i].GetComponent<IProp>().StartJudgement();
-        for (int i = 0; i < walls.Count; i++) walls[i].GetComponent<Wall>().StartJudgement();
+        for (int i = 0; i < walls.Count; i++) if (walls[i] != null) walls[i].GetComponent<Wall>().StartJudgement();
     }
 
     private void Start()
@@ -126,5 +126,12 @@ public class ItemCreateSystem : MonoBehaviour
         wallParent = GameObject.Find("WallParent").transform;
         foodParent = GameObject.Find("FoodParent").transform;
         propParent = GameObject.Find("PropParent").transform;
+    }
+
+    public void SetCount(int food,int wall,int prop)
+    {
+        foodCount = food;
+        wallCount = wall;
+        propCount = prop;
     }
 }

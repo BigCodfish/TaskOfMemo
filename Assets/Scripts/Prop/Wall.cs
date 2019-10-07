@@ -16,7 +16,12 @@ public class Wall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player") FindObjectOfType<IGameScene>().SetResult(false);
+        if (collision.tag == "Player")
+        {
+            FindObjectOfType<AudioSystem>().PlayPropAudio(5);
+            FindObjectOfType<IGameScene>().SetResult(false);
+        }
+
     }
 
     private void Start()
@@ -33,8 +38,9 @@ public class Wall : MonoBehaviour
             leftBottom = new Vector2(transform.position.x - mWidth / 2 - 0.4f, transform.position.y - mLength / 2 - 0.4f);
             rightTop = new Vector2(transform.position.x + mWidth / 2 + 0.4f, transform.position.y + mLength / 2 + 0.4f);
         }
-       
-        
+        mCollider = Physics2D.OverlapArea(leftBottom, rightTop, LayerMask.GetMask("Player"));
+        if (mCollider != null) Destroy(this.gameObject);
+
     }
     private void Update()
     {

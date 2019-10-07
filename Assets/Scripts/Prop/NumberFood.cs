@@ -13,6 +13,7 @@ public class NumberFood : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
+            FindObjectOfType<AudioSystem>().PlayPropAudio(2);
             collision.GetComponent<Player>().AddBody(mNumber);
             this.gameObject.SetActive(false);
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ColorCube : MonoBehaviour
 {
-    private Color mColor;
+    public Color mColor;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag=="Player"&&mColor!=collision.GetComponent<Player>().mcolor)

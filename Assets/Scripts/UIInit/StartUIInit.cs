@@ -7,9 +7,10 @@ public class StartUIInit : IUIInit
 {
     protected override void UIEventInit()
     {
-        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate(){mUISystem.UISwitchButton("ModeChoosePanel");});
-        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("SettingUI"); });
-        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("HelpUI"); });
+        transform.GetChild(0).GetComponent<Button>().onClick.AddListener(delegate(){mUISystem.UISwitchButton("ModeChoosePanel"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(1).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("SettingUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(2).GetComponent<Button>().onClick.AddListener(delegate () { mUISystem.UISwitchButton("HelpUI"); FindObjectOfType<AudioSystem>().PlayButtonAudio(); });
+        transform.GetChild(3).GetComponent<Button>().onClick.AddListener(delegate () { Application.Quit();  });
     }
 
 }
